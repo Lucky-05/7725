@@ -18,12 +18,21 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   CANSparkMax motor0;
   CANSparkMax motor1;
+  
   SparkPIDController motor0Controller;
    SparkPIDController motor1Controller;
   public Shooter() {
   motor0 = new CANSparkMax(Constants.ShooterConstants.motor0Id, MotorType.kBrushless);    
   motor1 = new CANSparkMax(Constants.ShooterConstants.motor1Id, MotorType.kBrushless);
- 
+    
+  motor0.setIdleMode(CANSparkBase.IdleMode.kCoast);
+  motor1.setIdleMode(CANSparkBase.IdleMode.kCoast);
+
+  motor0.restoreFactoryDefaults();
+  motor1.restoreFactoryDefaults();
+  //motor0.setSmartCurrentLimit(ShooterConstants.currentLimit);
+  //motor1.setSmartCurrentLimit(ShooterConstants.currentLimit);
+  
   motor0.setIdleMode(CANSparkBase.IdleMode.kCoast);
   motor1.setIdleMode(CANSparkBase.IdleMode.kCoast);
 
@@ -51,7 +60,21 @@ public class Shooter extends SubsystemBase {
   
  // SparkPIDController controller = new SparkPIDController(motor0);
   }
+  public void setSpeed1(){
+    motor0.set(-0.75);
+    motor1.set(-0.75);
+  }
 
+  public void setSpeed2(){
+    motor0.set(-0.5);
+    motor1.set(-0.5);
+  }
+
+  public void setSpeed3(){
+    motor0.set(-0.85);
+    motor1.set(-0.85);
+
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -66,4 +89,11 @@ public class Shooter extends SubsystemBase {
     
     motor0Controller.setReference(setPoint, ControlType.kVelocity);
   }
+
+  public void setSpeed0(){
+    motor0.set(0);
+    motor1.set(0);
+  }
+  
+  
 }

@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -7,6 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.*;
@@ -22,7 +25,10 @@ public class RobotContainer {
 
     /*Subsystems */
     private Intake mIntake = new Intake();
-
+    private Pivot mPivot = new Pivot();
+    private Shooter shooter = new Shooter();
+    private Indexer indexer = new Indexer();
+    private Rack rack = new Rack();
     /* Controllers */
     private final Joystick driver = new Joystick(0);
     private final Joystick mechanisms = new Joystick(1);
@@ -31,6 +37,7 @@ public class RobotContainer {
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
+    
     //private final int speedAxis = XboxController.Axis.kRightTrigger.value;
 
     /* Driver Buttons */
@@ -42,19 +49,28 @@ public class RobotContainer {
         new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton resetWheels = 
         new JoystickButton(driver, XboxController.Button.kB.value);
-
+    
         /*Mechanisms */
-        private final JoystickButton intakeIn = 
+              private final JoystickButton aim = 
         new JoystickButton(mechanisms, XboxController.Button.kA.value);
-        private final JoystickButton intakeAmp = 
-        new JoystickButton(mechanisms, XboxController.Button.kB.value);
-        private final JoystickButton aim = 
-        new JoystickButton(mechanisms, XboxController.Axis.kLeftTrigger.value);
+        private final JoystickButton rackUp = new JoystickButton(mechanisms, XboxController.Button.kRightBumper.value);
+        private final JoystickButton rackDown = new JoystickButton(mechanisms, XboxController.Button.kLeftBumper.value);
+        private final JoystickButton intakeButton = new JoystickButton(mechanisms,  XboxController.Button.kB.value);
+        private final JoystickButton spitIntakeButton = new JoystickButton(mechanisms,  XboxController.Button.kY.value);
+        
+        private final int goUpAxis = XboxController.Button.kLeftStick.value;
+        private final int goDownAxis = XboxController.Button.kRightStick.value;
+
+        private final JoystickButton intakeDown = new JoystickButton(mechanisms, XboxController.Button.kRightStick.value);
+        private final JoystickButton intakeUp = new JoystickButton(mechanisms, XboxController.Button.kLeftStick.value);
+
+
         
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
 
+    
     private SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
@@ -75,7 +91,17 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );
+        
+        /* 
+        mPivot.setDefaultCommand(
+            new PivotCommand(
+                mPivot, 
+            () -> mechanisms.getRawAxis(goUpAxis),
+            () -> mechanisms.getRawAxis(goDownAxis)
+            )
+        );
 
+        */
         //* driver.getRawAxis(speedAxis) * SmartDashboard.getNumber("SpeedLimit", 1)
         //* driver.getRawAxis(speedAxis) * SmartDashboard.getNumber("SpeedLimit", 1)
         //* SmartDashboard.getNumber("SpeedLimit", 1) * 0.60
@@ -94,9 +120,16 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro1.and(zeroGyro2).onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
         resetWheels.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
-        intakeIn.whileTrue(new IntakeCommand(mIntake));
-        intakeAmp.whileTrue(new IntakeAmp(mIntake));
-        
+       // intakeIn.whileTrue(new IntakeCommand(mIntake));
+        aim.whileTrue(new ShooterCommand(shooter));
+        aim.whileTrue(new IndexerCommand(indexer));
+        rackUp.whileTrue(new RackCommand(rack, true, false));
+        rackDown.whileTrue(new RackCommand(rack, false, true));
+        intakeButton.whileTrue(new IntakeCommand(mIntake,0.7));
+        spitIntakeButton.whileTrue(new IntakeCommand(mIntake, -0.7));
+        intakeDown.whileTrue(new PivotCommand(mPivot,true, false));
+        intakeUp.whileTrue(new PivotCommand(mPivot,false, true));
+
     }
 
     /**
@@ -107,5 +140,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // Will run in autonomous
         return m_chooser.getSelected();
+        
     }
 }

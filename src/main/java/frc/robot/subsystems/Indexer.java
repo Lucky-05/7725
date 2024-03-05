@@ -24,9 +24,16 @@ public class Indexer extends SubsystemBase {
   }
 
   public void setIndexerSpeed(boolean isDesired){
-    if(isDesired) motor.set(0.4);
+    if(isDesired) motor.set(0.25);
     else{
       motor.set(0);
     }
+  }
+
+  public void setIndexerSpeed(){
+    motor.set(0.25);
+  }
+  public void setIndexerSpeed0(){
+    motor.set(0);
   }
 }

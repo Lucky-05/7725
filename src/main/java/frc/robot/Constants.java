@@ -113,7 +113,7 @@ public final class Constants {
             public static final int driveMotorID = 4; 
             public static final int angleMotorID = 3;
             public static final int canCoderID = 10;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(154.2480);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(158);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -123,7 +123,7 @@ public final class Constants {
             public static final int driveMotorID = 2;
             public static final int angleMotorID = 1;
             public static final int canCoderID = 9;    
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-93.3398);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-101);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -147,8 +147,10 @@ public final class Constants {
     }
 
     public static class ShooterConstants{
-        public static int motor0Id = 14;
-        public static int motor1Id = 15;
+        public static int motor0Id = 25;
+
+        public static int rackMotorID = 22;
+        public static int motor1Id = 32;
         
         public static double motor0kP = 0;
         public static double motor0kI = 0;
@@ -158,19 +160,19 @@ public final class Constants {
         public static double motor1kI = 0;
         public static double motor1kD = 0;
 
-        public static int currentLimit = 35;
+        public static int currentLimit = 45;
 
         public static double gearRatio = (48/18);
     }
 
     public static class IndexerConstants{
-        public static int motorId = 16;
+        public static int motorId = 34;
         
     }
 
     public static class IntakeConstants{
-        public static int pivotIntakeId = 17;
-        public static int motorId = 18;
+        public static int pivotIntakeId = 28;
+        public static int motorId = 36;
         public static double intakeSpeed = 0.5;
 
         public static double motorkP = 0;
