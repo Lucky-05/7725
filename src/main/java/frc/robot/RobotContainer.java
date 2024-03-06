@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,6 +25,9 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
 
+    SendableChooser <Command> autoChooser;
+    private final AutoCommand auto = new AutoCommand();
+    private final Command autoDrive = auto.Auto0(); 
     /*Subsystems */
     private Intake mIntake = new Intake();
     private Pivot mPivot = new Pivot();
@@ -92,22 +97,12 @@ public class RobotContainer {
             )
         );
         
-        /* 
-        mPivot.setDefaultCommand(
-            new PivotCommand(
-                mPivot, 
-            () -> mechanisms.getRawAxis(goUpAxis),
-            () -> mechanisms.getRawAxis(goDownAxis)
-            )
-        );
-
-        */
-        //* driver.getRawAxis(speedAxis) * SmartDashboard.getNumber("SpeedLimit", 1)
-        //* driver.getRawAxis(speedAxis) * SmartDashboard.getNumber("SpeedLimit", 1)
-        //* SmartDashboard.getNumber("SpeedLimit", 1) * 0.60
-
-        // Configure the button bindings
+        
         configureButtonBindings();
+
+        
+        autoChooser  = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData("Auto Mode", autoChooser);
     }
 
     /**
@@ -139,7 +134,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // Will run in autonomous
-        return m_chooser.getSelected();
+        return autoChooser.getSelected();
         
     }
 }

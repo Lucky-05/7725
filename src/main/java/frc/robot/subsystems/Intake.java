@@ -20,11 +20,11 @@ public class Intake extends SubsystemBase {
         motor = new CANSparkMax(Constants.IntakeConstants.motorId, CANSparkMax.MotorType.kBrushless);
         motor.setInverted(false);
         motor.setSmartCurrentLimit(30);
-        //Set PID
-        /*motor.getPIDController().setP(Constants.IntakeConstants.motorkP);
+        
+        motor.getPIDController().setP(Constants.IntakeConstants.motorkP);
         motor.getPIDController().setI(Constants.IntakeConstants.motorkI);
         motor.getPIDController().setD(Constants.IntakeConstants.motorkD);
-        */
+      
         // Set the output range of the PID controller
         motor.getPIDController().setOutputRange(minOutput, maxOutput);
     }

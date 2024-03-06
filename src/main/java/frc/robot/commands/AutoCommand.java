@@ -17,9 +17,9 @@ import frc.robot.subsystems.Swerve;
 public class AutoCommand extends Command {
   /** Creates a new AutoCommand. */
   Swerve swerve = new Swerve();
-  public Command DriveAuto0(){
+  public Command DrivePastLine(){
     
-    PathPlannerPath path = PathPlannerPath.fromPathFile("Auto0");
+    PathPlannerPath path = PathPlannerPath.fromPathFile("Speaker Stage Note");
 
      return new FollowPathHolonomic(
                 path,
@@ -42,6 +42,16 @@ public class AutoCommand extends Command {
                 swerve // Reference to this subsystem to set requirements
         );
     }
+
+    public Command Auto0(){
+      String autoName = "Auto0";
+      Pose2d pose =  PathPlannerAuto.getStaringPoseFromAutoFile(autoName);
+
+      swerve.swerveOdometry.resetPosition(swerve.getHeading(), swerve.getModulePositions(), 
+      pose);
+      
+      return new PathPlannerAuto(autoName);
+  }
 
    
   }
