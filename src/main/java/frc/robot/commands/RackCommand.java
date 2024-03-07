@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.subsystems.Rack;
 
 public class RackCommand extends Command {
@@ -13,6 +14,7 @@ public class RackCommand extends Command {
   Rack rack;
   boolean rb;
   boolean rl;
+  
   public RackCommand(Rack rack, boolean rl, boolean rb) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.rb = rb; 
@@ -29,12 +31,13 @@ public class RackCommand extends Command {
   @Override
   public void execute() {
     if(rb == true){
-  rack.setSpeedP();
+    rack.setSpeedP();
     }
     else if (rl == true){
       rack.setSpeedN();
     }
     
+   // rack.setAngle(rack.getAngle(rack.getDistance()));
     
     
   }
