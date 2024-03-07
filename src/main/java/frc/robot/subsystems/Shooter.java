@@ -86,7 +86,8 @@ public class Shooter extends SubsystemBase {
 
   public void desiredRpm(double distance){
 
-    double setPoint = distance*1000+1100/Constants.ShooterConstants.gearRatio;
+    //tune equation for angle and velocity
+   double setPoint = distance*1000+1100;
     this.setPoint = setPoint;
     motor0Controller.setReference(setPoint, ControlType.kVelocity);
   }

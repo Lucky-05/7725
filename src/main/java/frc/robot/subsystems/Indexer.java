@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.fasterxml.jackson.databind.ser.std.CalendarSerializer;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -15,6 +14,9 @@ public class Indexer extends SubsystemBase {
   /** Creates a new Indexer. */
   CANSparkMax motor;
   public Indexer() {
+    motor.restoreFactoryDefaults();
+    motor.restoreFactoryDefaults(); 
+    motor.setSmartCurrentLimit(25);
     motor = new CANSparkMax(Constants.IndexerConstants.motorId, MotorType.kBrushless);
   }
 
@@ -23,13 +25,7 @@ public class Indexer extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setIndexerSpeed(boolean isDesired){
-    if(isDesired) motor.set(0.25);
-    else{
-      motor.set(0);
-    }
-  }
-
+  
   public void setIndexerSpeed(){
     motor.set(0.25);
   }

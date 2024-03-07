@@ -2,7 +2,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 
-import edu.wpi.first.math.geometry.Translation2d;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.*;
@@ -27,8 +25,8 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
 
     SendableChooser <Command> autoChooser;
-    private final AutoCommand auto = new AutoCommand();
-    private final Command autoDrive = auto.Auto0(); 
+    //private final AutoCommand auto = new AutoCommand();
+    //private final Command autoDrive = auto.Auto0(); 
     /*Subsystems */
     private Intake mIntake = new Intake();
     private Pivot mPivot = new Pivot();
@@ -64,9 +62,6 @@ public class RobotContainer {
         private final JoystickButton rackDown = new JoystickButton(mechanisms, XboxController.Button.kLeftBumper.value);
         private final JoystickButton intakeButton = new JoystickButton(mechanisms,  XboxController.Button.kB.value);
         private final JoystickButton spitIntakeButton = new JoystickButton(mechanisms,  XboxController.Button.kY.value);
-        
-        private final int goUpAxis = XboxController.Button.kLeftStick.value;
-        private final int goDownAxis = XboxController.Button.kRightStick.value;
 
         private final JoystickButton intakeDown = new JoystickButton(mechanisms, XboxController.Button.kRightStick.value);
         private final JoystickButton intakeUp = new JoystickButton(mechanisms, XboxController.Button.kLeftStick.value);

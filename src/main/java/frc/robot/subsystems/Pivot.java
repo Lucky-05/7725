@@ -1,15 +1,10 @@
 package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
-import com.revrobotics.SparkMaxAlternateEncoder.Type;
-import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.*;
+import frc.robot.Constants.IntakeConstants;
 public class Pivot extends SubsystemBase {
     //First we declare the master motors which are the front motors
     private final CANSparkMax motor;
@@ -23,15 +18,15 @@ public class Pivot extends SubsystemBase {
 
     public Pivot() {
         //Set Motors
-        motor = new CANSparkMax(Constants.IntakeConstants.pivotIntakeId, CANSparkMax.MotorType.kBrushless);
+        motor = new CANSparkMax(Constants.IntakeConstants.PivotConstants.pivotIntakeId, CANSparkMax.MotorType.kBrushless);
         motor.setInverted(false);
         controller = motor.getPIDController();
         //Create Settings
         //Pid Settings.
-        controller.setP(Constants.IntakeConstants.motorkP);
-        controller.setI(Constants.IntakeConstants.motorkI);
-        controller.setD(Constants.IntakeConstants.motorkD);
-        motor.setSmartCurrentLimit(30);
+        controller.setP(Constants.IntakeConstants.PivotConstants.motorkP);
+        controller.setI(Constants.IntakeConstants.PivotConstants.motorkI);
+        controller.setD(Constants.IntakeConstants.PivotConstants.motorkD);
+        motor.setSmartCurrentLimit(IntakeConstants.PivotConstants.pivotCurrentLimit);
         // Set the output range of the PID controller
         controller.setOutputRange(minOutput, maxOutput);
        // controller.setReference(maxOutput, null)

@@ -14,10 +14,11 @@ public class Feeder extends SubsystemBase {
   /** Creates a new Feeder. */
   CANSparkMax motor; 
   public Feeder() {
-    motor = new CANSparkMax(ShooterConstants.feederIdMotor, MotorType.kBrushless);
+    motor = new CANSparkMax(ShooterConstants.FeederConstants.feederIdMotor, MotorType.kBrushless);
     motor.restoreFactoryDefaults();
     motor.setInverted(false);
     motor.clearFaults();
+    motor.setSmartCurrentLimit(ShooterConstants.FeederConstants.feederCurrentLimit);
 
   }
 
@@ -25,6 +26,9 @@ public class Feeder extends SubsystemBase {
     motor.set(0.6);
   }
   
+  public void setSpeed0(){
+    motor.set(0);
+  }
 
   @Override
   public void periodic() {
