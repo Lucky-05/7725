@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -34,6 +35,7 @@ public class RobotContainer {
     private Shooter shooter = new Shooter();
     private Indexer indexer = new Indexer();
     private Rack rack = new Rack();
+    private Feeder feeder = new Feeder();
     /* Controllers */
     private final Joystick driver = new Joystick(0);
     private final Joystick mechanisms = new Joystick(1);
@@ -117,7 +119,10 @@ public class RobotContainer {
         resetWheels.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
        // intakeIn.whileTrue(new IntakeCommand(mIntake));
         aim.whileTrue(new ShooterCommand(shooter));
-        aim.whileTrue(new IndexerCommand(indexer));
+        if(shooter.desiredState()){
+            new ParallelCommandGroup(new IndexerCommand(indexer), new FeederCommand(feeder));
+        }
+        
         rackUp.whileTrue(new RackCommand(rack, true, false));
         rackDown.whileTrue(new RackCommand(rack, false, true));
         intakeButton.whileTrue(new IntakeCommand(mIntake,0.7));

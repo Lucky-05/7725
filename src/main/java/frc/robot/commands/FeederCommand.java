@@ -5,16 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.lib.util.LimelightHelpers;
-import frc.robot.subsystems.Shooter;
 
-public class ShooterCommand extends Command {
-  /** Creates a new Shooter. */
-  Shooter m_Shooter;
-  public ShooterCommand(Shooter m_Shooter) {
+public class FeederCommand extends Command {
+  /** Creates a new FeederCommand. */
+  public FeederCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_Shooter = m_Shooter;
-   addRequirements(m_Shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -23,22 +18,15 @@ public class ShooterCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
- 
-    m_Shooter.desiredRpm(LimelightHelpers.getTY("limelight"));
- // m_Shooter.setSpeed1();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  m_Shooter.setSpeed0();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
   }
-
 }

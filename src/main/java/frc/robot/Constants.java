@@ -151,6 +151,8 @@ public final class Constants {
 
         public static int rackMotorID = 22;
         public static int motor1Id = 32;
+
+        public static int feederIdMotor = 30;
         
         public static double motor0kP = 0;
         public static double motor0kI = 0;

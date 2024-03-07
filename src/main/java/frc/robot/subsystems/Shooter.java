@@ -18,6 +18,7 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   CANSparkMax motor0;
   CANSparkMax motor1;
+  double setPoint;
   
   SparkPIDController motor0Controller;
    SparkPIDController motor1Controller;
@@ -80,13 +81,13 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Motor0 Temperature", motor0.getMotorTemperature());
     SmartDashboard.putNumber("Motor0 Temperature", motor1.getMotorTemperature());
-    
+    SmartDashboard.putNumber("Shooter Velocity", getMotorVelocity());
   }
 
   public void desiredRpm(double distance){
 
     double setPoint = distance*1000+1100/Constants.ShooterConstants.gearRatio;
-    
+    this.setPoint = setPoint;
     motor0Controller.setReference(setPoint, ControlType.kVelocity);
   }
 
@@ -95,5 +96,17 @@ public class Shooter extends SubsystemBase {
     motor1.set(0);
   }
   
+  public double getMotorVelocity(){
+    return motor0.getEncoder().getVelocity();
+  }
   
+  
+  public boolean desiredState(){
+    boolean result = false; 
+
+    if(setPoint*ShooterConstants.threshold < getMotorVelocity() || setPoint*1.05>getMotorVelocity()){
+      result = true;
+    }
+    return result;
+  }
 }
