@@ -6,8 +6,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.util.LimelightHelpers;
 import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.ShooterConstants.RackConstants;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
@@ -109,5 +111,9 @@ public class Shooter extends SubsystemBase {
       result = true;
     }
     return result;
+  }
+
+  public double getDistance(){
+    return (RackConstants.speakerHeigt-RackConstants.cameraHeight)/(Math.tan(LimelightHelpers.getTY("limelight"))*Math.cos(LimelightHelpers.getTX("limelight")));
   }
 }

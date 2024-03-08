@@ -175,6 +175,9 @@ public final class Constants {
              public static double kP = 0.0001; 
              public static double kI = 0.01;
              public static double kD = 0.0000002;
+             public static double anglePerRotation = 6;
+             public static double cameraHeight = 0.2;
+            public static double speakerHeigt = 2.11;
         }
 
     }

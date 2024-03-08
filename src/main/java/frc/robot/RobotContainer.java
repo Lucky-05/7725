@@ -2,7 +2,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 
-
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -27,6 +27,7 @@ public class RobotContainer {
     SendableChooser <Command> autoChooser;
     //private final AutoCommand auto = new AutoCommand();
     //private final Command autoDrive = auto.Auto0(); 
+    UsbCamera camera;
     /*Subsystems */
     private Intake mIntake = new Intake();
     private Pivot mPivot = new Pivot();

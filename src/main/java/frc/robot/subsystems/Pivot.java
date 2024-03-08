@@ -43,4 +43,6 @@ public class Pivot extends SubsystemBase {
         motor.set(0);
     }
 
+    
+
    }
